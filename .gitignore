@@ -1,0 +1,7 @@
+node_modules
+.build
+.serverless
+.dynamodb
+.DS_Store
+.idea
+.env

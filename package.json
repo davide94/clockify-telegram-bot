@@ -1,0 +1,45 @@
+{
+  "name": "telegram-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier-standard \"src/**/*.ts\" --format && prettier-standard \"tests/**/*.ts\" --format",
+    "build": "tsc",
+    "deploy": "npm run test && npm run deploy:dev",
+    "deploy:dev": "sls deploy --stage dev",
+    "deploy:staging": "sls deploy --stage staging",
+    "deploy:prod": "sls deploy --stage prod",
+    "offline": "sls offline start",
+    "set-webhook": "curl --request POST --url https://api.telegram.org/bot<TELEGRAM_TOKEN>/setWebhook --header 'content-type: application/json' --data '{\"url\": \"<ENDPOINT_URL>\"}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davide94/telegram-bot.git"
+  },
+  "author": "Davide Rossetto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davide94/telegram-bot/issues"
+  },
+  "homepage": "https://github.com/davide94/telegram-bot#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.62",
+    "@types/node": "^13.13.20",
+    "@types/node-telegram-bot-api": "^0.40.3",
+    "lint-staged": "^10.3.0",
+    "prettier": "^2.1.2",
+    "prettier-standard": "^16.4.1",
+    "serverless": "^1.83.0",
+    "serverless-domain-manager": "^3.3.1",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-offline": "^6.7.0",
+    "serverless-plugin-typescript": "^1.1.9",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.50.0"
+  }
+}
