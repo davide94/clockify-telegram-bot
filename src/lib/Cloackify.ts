@@ -1,22 +1,37 @@
+import axios from 'axios'
 
 export class Clockify {
+  static async getWorkspaces (token: string) {
+    const url = 'https://api.clockify.me/api/v1/workspaces/'
+    const headers = {
+      'X-Api-Key': token
+    }
 
-  static async getWorkspaces(token: string) {
-    // GET https://api.clockify.me/api/v1/workspaces/
-    // X-Api-Key: <token>
+    const { data, status } = await axios.get(url, { headers })
 
-    //TODO: implement
+    if (status !== 200) {
+      throw new Error()
+    }
 
+    // @ts-ignore
+    return JSON.parse(data).map(({ id, name }) => {
+      return { id, name }
+    })
   }
 
-  static async addTimeEntry(token: string, entry: Entry) {
-    // POST https://api.clockify.me/api/v1/workspaces/<workspace-id>/time-entries
-    // X-Api-Key: <token>
+  static async addTimeEntry (token: string, workspace: string, entry: Entry) {
+    const url = `https://api.clockify.me/api/v1/workspaces/${workspace}/time-entries`
+    const headers = {
+      'X-Api-Key': token
+    }
+    const body = JSON.stringify(entry)
 
-    //TODO: implement
+    const { status } = await axios.post(url, body, { headers })
 
+    if (status !== 201) {
+      throw new Error()
+    }
   }
-
 }
 
 export type Entry = {

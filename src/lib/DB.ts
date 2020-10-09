@@ -3,17 +3,16 @@ const region = process.env.REGION!
 const usersTableName = process.env.USERS_TABLE_NAME!
 
 export class DB {
-
   private static client: DocumentClient
 
-  private static getClient() {
+  private static getClient () {
     if (!DB.client) {
       this.client = new DocumentClient({ region })
     }
     return this.client
   }
 
-  static async createUser(entity: User) {
+  static async createUser (entity: User) {
     const client = DB.getClient()
 
     const params: DocumentClient.PutItemInput = {
@@ -25,7 +24,7 @@ export class DB {
     return await DB.getUser(entity.id)
   }
 
-  static async updateUser(id: string, update: UserUpdate) {
+  static async updateUser (id: string, update: UserUpdate) {
     if (!Object.keys(update).length) {
       return
     }
@@ -37,14 +36,14 @@ export class DB {
       Key: { id },
       UpdateExpression: 'SET #a=:a',
       ExpressionAttributeNames: {},
-      ExpressionAttributeValues : {}
+      ExpressionAttributeValues: {}
     }
 
     Object.keys(update).forEach(x => {
       params.UpdateExpression += `#${x}=:${x} `
-      params.ExpressionAttributeNames!['#'+x] = x
+      params.ExpressionAttributeNames!['#' + x] = x
       // @ts-ignore
-      params.ExpressionAttributeValues![':'+x] = update[x]
+      params.ExpressionAttributeValues![':' + x] = update[x]
     })
 
     await client.update(params).promise()
@@ -52,7 +51,7 @@ export class DB {
     return await DB.getUser(id)
   }
 
-  static async getUser(id: string) {
+  static async getUser (id: string) {
     const client = DB.getClient()
 
     const params: DocumentClient.GetItemInput = {
@@ -72,13 +71,13 @@ export class DB {
 
 export type User = {
   id: string
-  name: string,
+  name: string
   token?: string
   defaultWorkspace?: string
 }
 
 export type UserUpdate = {
-  name?: string,
+  name?: string
   token?: string
   defaultWorkspace?: string
 }
