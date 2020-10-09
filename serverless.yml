@@ -1,4 +1,6 @@
-service: telegram-bot
+app: clockify-telegram-bot
+service: clockify-telegram-bot
+org: techboys
 
 plugins:
   - serverless-dotenv-plugin
@@ -13,12 +15,15 @@ provider:
     name: serverless-deploys.${self:custom.region.${self:custom.stage}}
   environment:
     REGION: ${self:provider.region}
+    USERS_TABLE_NAME: ${self:provider.usersTableName}
 
 custom:
   stage: ${opt:stage, self:provider.stage}
   region:
     prod: eu-south-1
     dev: eu-south-1
+
+  usersTableName: clockify-telegram-bot-users-${self:custom.stage}
 
 functions:
   bot:
