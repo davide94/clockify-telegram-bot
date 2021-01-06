@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.771.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "node-telegram-bot-api": "^0.50.0"
   }
 }
